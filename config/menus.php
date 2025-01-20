@@ -4,12 +4,12 @@ $userMenu = [
     ['title' => 'Dashboard', 'icon' => 'home', 'url'=>'/dashboard'], 
      ['title'=> 'Patients', 'icon'=>'hospital', 'url'=>'/dashboard/patients/index'],
     ['title' => 'Appointments', 'icon' => 'calendar', 'submenus' => [
-        ['title' => 'Appointments status', 'url' => '/dashboard/appointments/index'],
-        ['title' => 'New Appointment', 'url' => '/dashboard/appointments/create'],
+        ['title' => 'Appointments status', 'url' => '/dashboard/appointment-status/index'],
+        ['title' => 'New Appointment', 'url' => '/dashboard/appointments/index'],
     ]],
     ['title' => 'Staff', 'icon' => 'user-md', 'submenus' => [
-        ['title' => 'Department', 'url' => '/dashboard/staff/index'],
-        ['title' => 'Staff', 'url' => '/dashboard/staff/create'],
+        ['title' => 'Department', 'url' => '/dashboard/department/index'],
+        ['title' => 'Staff', 'url' => '/dashboard/staff/index'],
     ]],
     ['title'=>'Medical Records','icon'=>'file-medical', 'url'=> 'dashboard/medical-records/index'],
     ['title'=> 'Pharmacy', 'icon'=>'medkit', 'url'=>'/dashboard/pharmacy/index'],
