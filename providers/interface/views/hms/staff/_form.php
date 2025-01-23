@@ -3,7 +3,7 @@
 use helpers\Html;
 use helpers\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
-
+use dashboard\models\Department;
 /** @var yii\web\View $this */
 /** @var dashboard\models\Staff $model */
 /** @var helpers\widgets\ActiveForm $form */
@@ -28,7 +28,10 @@ use yii\helpers\ArrayHelper;
           <?= $form->field($model, 'address')->textarea(['rows' => 6]) ?>
         </div>
         <div class="col-md-12">
-          <?= $form->field($model, 'department_id')->textInput() ?>
+          <?= $form->field($model, 'department_id')->dropDownList(
+            ArrayHelper::map(Department::find()->all(), 'id', 'name'),
+            ['prompt' => 'Select Department']
+          ) ?>
         </div>
         <div class="col-md-12">
           <?= $form->field($model, 'role')->textInput(['maxlength' => true]) ?>

@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'url' => Url::to(['create']),
             'appearence' => [
               'type' => 'text',
-              'text' => 'Create Staff',
+              'text' => 'Add Staff',
               'theme' => 'primary',
               'visible' => Yii::$app->user->can('dashboard-staff-create', true)
             ],
@@ -42,11 +42,25 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'first_name',
-            'last_name',
+            
+            
+            [
+              'attribute' => 'first_name',
+              'value' => function($model) {
+                  return  ($model? $model->first_name .' '. $model->last_name : 'No patient found');
+              },
+              'label' => 'Staff Info'
+          ],
+            
             'phone',
             'email:email',
+            [
+              'attribute' => 'department_id',
+              'value' => function($model) {
+                  return  ($model->department ? $model->department->name : 'No department found');
+              },
+              'label' => 'Department'
+          ],
             //'address:ntext',
             //'department_id',
             //'role',

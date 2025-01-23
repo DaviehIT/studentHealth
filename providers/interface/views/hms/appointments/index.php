@@ -45,20 +45,25 @@ $this->params['breadcrumbs'][] = $this->title;
             [
               'attribute' => 'patient_id',
               'value' => function($model) {
-                  return "ID: " . $model->patient_id . " - Name: " . ($model->patient ? $model->patient->name : 'No patient found');
+                  return  ($model->patient ? $model->patient->first_name .' '. $model->patient->last_name : 'No patient found');
               },
               'label' => 'Patient Info'
           ],
           [
               'attribute' => 'staff_id',
               'value' => function($model) {
-                  return "ID: " . $model->staff_id . " - Name: " . ($model->staff ? $model->staff->name : 'No staff found');
+                  return ($model->staff ? 'DR. '.$model->staff->first_name .' '.$model->staff->last_name : 'No staff found');
               },
               'label' => 'Doctor Info'
           ],
             'appointment_date',
             'appointment_time',
-            //'status_id',
+            [
+              'attribute' => 'status_id',
+              'value' => function($model) {
+                  return  ($model->status ? $model->status->name : 'No status found');
+              },
+              'label' => 'Status'],
             //'remarks:ntext',
             //'is_deleted',
             //'created_at',

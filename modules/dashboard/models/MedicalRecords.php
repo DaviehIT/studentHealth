@@ -51,8 +51,8 @@ class MedicalRecords extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'patient_id' => 'Patient ID',
-            'staff_id' => 'Staff ID',
+            'patient_id' => 'Patient Name',
+            'staff_id' => 'Staff Name',
             'diagnosis' => 'Diagnosis',
             'treatment' => 'Treatment',
             'prescription' => 'Prescription',

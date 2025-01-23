@@ -13,6 +13,9 @@ $config = [
     'modules' => $wrapper->load('modules'),
     'runtimePath' => dirname(__DIR__) . '/providers/bin',
     'components' => [
+        'mpesa'=> [
+            'class'=> 'app\providers\components\MpesaService',
+        ],
         'assetManager' => [
             'basePath' => '@ui/assets/core',
             'baseUrl' => '@web/providers/interface/assets/core',
@@ -39,9 +42,9 @@ $config = [
         ],
         'request' => [
             'cookieValidationKey' => hash_hmac('sha256', md5(date('DYM')), sha1(date('myd'))),
-            // 'parsers' => [
-            //     'application/json' => 'yii\web\JsonParser',
-            // ],
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ],
         ],
         // 'response' => [
         //     /* Enable JSON Output: */
@@ -129,6 +132,7 @@ $config = [
             'enableStrictParsing' => false,
             'showScriptName' => false,
             'rules' => [
+                'api/mpesa/callback' => '/dashboard/billing/callback',
                 $_ENV['APP_VERSION'] . '/about' => 'site/about',
                 [
                     'pattern' => $_ENV['APP_VERSION'] . '/docs/openapi-json-resource',

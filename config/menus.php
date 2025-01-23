@@ -11,7 +11,7 @@ $userMenu = [
         ['title' => 'Department', 'url' => '/dashboard/department/index'],
         ['title' => 'Staff', 'url' => '/dashboard/staff/index'],
     ]],
-    ['title'=>'Medical Records','icon'=>'file-medical', 'url'=> 'dashboard/medical-records/index'],
+    ['title'=>'Medical Records','icon'=>'file-medical', 'url'=> '/dashboard/medical-records/index'],
     ['title'=> 'Pharmacy', 'icon'=>'medkit', 'url'=>'/dashboard/pharmacy/index'],
     ['title'=> 'Billing', 'icon'=>'money-bill', 'url'=>'/dashboard/billing/index'],
 

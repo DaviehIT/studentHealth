@@ -3,32 +3,33 @@
 namespace dashboard\controllers;
 
 use Yii;
-use dashboard\models\Appointments;
-use dashboard\models\searches\AppointmentsSearches;
+use dashboard\models\PharmacyInventory;
+use dashboard\models\searches\PharmacyInventorySearches;
 use helpers\DashboardController;
 use yii\web\NotFoundHttpException;
 
 /**
- * AppointmentsController implements the CRUD actions for Appointments model.
+ * PharmacyController implements the CRUD actions for PharmacyInventory model.
  */
-class AppointmentsController extends DashboardController
+class PharmacyController extends DashboardController
 {
     public $permissions = [
-        'dashboard-appointments-list'=>'View Appointments List',
-        'dashboard-appointments-create'=>'Add Appointments',
-        'dashboard-appointments-update'=>'Edit Appointments',
-        'dashboard-appointments-delete'=>'Delete Appointments',
-        'dashboard-appointments-restore'=>'Restore Appointments',
+        'dashboard-pharmacy-list'=>'View PharmacyInventory List',
+        'dashboard-pharmacy-create'=>'Add PharmacyInventory',
+        'dashboard-pharmacy-update'=>'Edit PharmacyInventory',
+        'dashboard-pharmacy-delete'=>'Delete PharmacyInventory',
+        'dashboard-pharmacy-restore'=>'Restore PharmacyInventory',
+        'dashboard-pharmacy-view'=>'View PharmacyInventory',
         ];
 
-        public function getViewPath()
-        {
-            return Yii::getAlias('@ui/views/hms/appointments');
-        }       
+    public function getViewPath()
+    {
+        return Yii::getAlias('@ui/views/hms/pharmacy');
+    }    
     public function actionIndex()
     {
-        Yii::$app->user->can('dashboard-appointments-list');
-        $searchModel = new AppointmentsSearches();
+        Yii::$app->user->can('dashboard-pharmacy-list');
+        $searchModel = new PharmacyInventorySearches();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -38,13 +39,13 @@ class AppointmentsController extends DashboardController
     }
     public function actionCreate()
     {
-        Yii::$app->user->can('dashboard-appointments-create');
-        $model = new Appointments();
+        Yii::$app->user->can('dashboard-pharmacy-create');
+        $model = new PharmacyInventory();
         if ($this->request->isPost) {
             if ($model->load(Yii::$app->request->post())) {
                 if ($model->validate()) {
                     if ($model->save()) {
-                        Yii::$app->session->setFlash('success', 'Appointments created successfully');
+                        Yii::$app->session->setFlash('success', 'PharmacyInventory created successfully');
                         return $this->redirect(['index']);
                     }
                 }
@@ -64,33 +65,33 @@ class AppointmentsController extends DashboardController
     }
     public function actionUpdate($id)
     {
-        Yii::$app->user->can('dashboard-appointments-update');
+        Yii::$app->user->can('dashboard-pharmacy-update');
         $model = $this->findModel($id);
 
         if ($this->request->isPost) {
             if ($model->load(Yii::$app->request->post())) {
                 if ($model->validate()) {
                     if ($model->save()) {
-                        Yii::$app->session->setFlash('success', 'Appointments updated successfully');
+                        Yii::$app->session->setFlash('success', 'PharmacyInventory updated successfully');
                         return $this->redirect(['index']);
                     }
                 }
             }
         }
-       if ($this->request->isAjax) {
-            return $this->renderAjax('update', [
-                'model' => $model,
-            ]);
-        }else{
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
+     if ($this->request->isAjax) {
+                return $this->renderAjax('update', [
+                    'model' => $model,
+                ]);
+            }else{
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
     }
     public function actionView($id)
     {
-        Yii::$app->user->can('dashboard-appointments-list');
-        return $this->render('view', [
+        Yii::$app->user->can('dashboard-pharmacy-view');
+        return $this->renderAjax('view', [
             'model' => $this->findModel($id),
         ]);
     }
@@ -98,19 +99,19 @@ class AppointmentsController extends DashboardController
     {
         $model = $this->findModel($id);
         if ($model->is_deleted) {
-            Yii::$app->user->can('dashboard-appointments-restore');
+            Yii::$app->user->can('dashboard-pharmacy-restore');
             $model->restore();
-            Yii::$app->session->setFlash('success', 'Appointments has been restored');
+            Yii::$app->session->setFlash('success', 'PharmacyInventory has been restored');
         } else {
-            Yii::$app->user->can('dashboard-appointments-delete');
+            Yii::$app->user->can('dashboard-pharmacy-delete');
             $model->delete();
-            Yii::$app->session->setFlash('success', 'Appointments has been deleted');
+            Yii::$app->session->setFlash('success', 'PharmacyInventory has been deleted');
         }
         return $this->redirect(['index']);
     }
     protected function findModel($id)
     {
-        if (($model = Appointments::findOne(['id' => $id])) !== null) {
+        if (($model = PharmacyInventory::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

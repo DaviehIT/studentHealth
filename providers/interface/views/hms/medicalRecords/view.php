@@ -4,16 +4,16 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var dashboard\models\Staff $model */
+/** @var dashboard\models\MedicalRecords $model */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Staff', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Medical Records', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="staff-view">
+<div class="medical-records-view">
 
-  
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -30,13 +30,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'first_name',
-            'last_name',
-            'phone',
-            'email:email',
-            'address:ntext',
-            'department_id',
-            'role',
+            'patient_id',
+            'staff_id',
+            'diagnosis:ntext',
+            'treatment:ntext',
+            'prescription:ntext',
             'is_deleted',
             'created_at',
             'updated_at',
