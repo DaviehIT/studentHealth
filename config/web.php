@@ -150,7 +150,7 @@ $config = [
             ],
         ],
     ],
-    'defaultRoute' => '/dashboard',
+    'defaultRoute' => '/dashboard/site/dashboard',
     'params' => $wrapper->load('params'),
 ];
 if ($_SERVER['ENVIRONMENT'] == 'dev') {

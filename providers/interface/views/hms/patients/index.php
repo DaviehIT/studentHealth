@@ -6,7 +6,7 @@ use yii\helpers\Url;
 use helpers\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var dashboard\models\searches\PatientsSearches $searchModel */
+/** @var dashboard\models\searches\PatientSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Patients';
@@ -18,16 +18,18 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="block-header block-header-default">
           <h3 class="block-title"><?= Html::encode($this->title) ?> </h3>
           <div class="block-options">
+          <?= Html::a('Download PDF Report', ['patients/export-pdf'], ['class' => 'btn btn-danger']) ?>
+
           <?=  Html::customButton([
             'type' => 'modal',
             'url' => Url::to(['create']),
             'appearence' => [
               'type' => 'text',
-              'text' => 'Register Patient',
+              'text' => 'Create Patients',
               'theme' => 'primary',
               'visible' => Yii::$app->user->can('dashboard-patients-create', true)
             ],
-            'modal' => ['title' => 'New Patient']
+            'modal' => ['title' => 'New Patients']
           ]) ?>
           </div> 
         </div>
@@ -41,14 +43,22 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            
+         
+          //   'student_id',
+          //   [
+          //   'attribute'=> 'student_id',
+          //   'value' => function($model) {
+          //       return  ($model->students ? $model->students->registration_number : 'No student found');
+          //   },
+          //   'label' => 'Patient Info'
+          // ],
             'first_name',
             'last_name',
             'date_of_birth',
             'gender',
-            //'phone',
-            //'email:email',
-            //'address:ntext',
+            'phone',
+            'email:email',
+            'address:ntext',
             //'is_deleted',
             //'created_at',
             //'updated_at',

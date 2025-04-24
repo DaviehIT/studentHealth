@@ -12,20 +12,40 @@ class m250117_112108_hms_tables extends Migration
      */
     public function safeUp()
     {
+        $this->createTable('students',[
+            'id' => $this->primaryKey(),
+            'user_id' => $this->bigInteger(),
+            'registration_number' => $this->string(50)->notNull()->unique(),
+            'first_name' => $this->string(100)->notNull(),
+            'last_name' => $this->string(100)->notNull(),
+            'gender' => $this->string(10),
+            'dob' => $this->date(),
+            'phone' => $this->string(20),
+            'faculty' => $this->string(100),
+            'course' => $this->string(100),
+             'is_deleted' => $this->boolean()->defaultValue(0),
+            'created_at' => $this->integer(),
+            'updated_at' => $this->integer(),
+            'FOREIGN KEY ([[user_id]]) REFERENCES {{%users}} ([[user_id]])' .
+                $this->buildFkClause('ON DELETE CASCADE', 'ON UPDATE CASCADE'),
+          
+
+        ]);
         $this->createTable('patients', [
             'id' => $this->primaryKey(),
+            'student_id' => $this->integer(),
             'first_name' => $this->string(100)->notNull(),
             'last_name' => $this->string(100)->notNull(),
             'date_of_birth' => $this->date()->notNull(),
             'gender' => $this->string(10)->notNull()->check("gender IN ('Male', 'Female')"),
-
-
             'phone' => $this->string(15)->notNull(),
             'email' => $this->string(100),
             'address' => $this->text()->notNull(),
             'is_deleted' => $this->boolean()->defaultValue(0),
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),
+            'FOREIGN KEY ([[student_id]]) REFERENCES {{%students}} ([[id]])' .
+            $this->buildFkClause('ON DELETE CASCADE', 'ON UPDATE CASCADE'),
 
         ]);
         $this->createTable('appointment_status', [
@@ -111,6 +131,7 @@ class m250117_112108_hms_tables extends Migration
             'updated_at' => $this->integer(),
 
         ]);
+     
     }
 
     /**

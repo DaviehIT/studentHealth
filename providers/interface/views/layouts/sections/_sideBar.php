@@ -1,4 +1,20 @@
-<nav id="sidebar" aria-label="Main Navigation">
+<?php
+use yii\helpers\Html;
+use ui\bundles\DashboardAsset;
+DashboardAsset::register($this);
+?>
+<nav id="sidebar" aria-label="Main Navigation" class="sidebar">
+<div class="  text-center py-3">
+    <a href="<?= Yii::$app->urlManager->createUrl(['dashboard/site/dashboard']) ?>" class="d-flex align-items-center justify-content-center">
+        
+        <?= Html::img('@web/providers/interface/assets/images/logo.webp', [
+            'alt' => 'TUM Wellness',
+            'class' => 'img-fluid',
+            'style' => 'max-height: 50px; margin-right: 10px;',// adjust size here
+        ]) ?>
+     
+    </a>
+</div>
     <!-- Side Header -->
     <div class="content-header">
         <!-- Logo -->

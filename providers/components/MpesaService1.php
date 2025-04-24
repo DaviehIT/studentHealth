@@ -146,7 +146,7 @@ class MpesaService extends Component
                 'PartyB' => $this->shortcode,
                 'PhoneNumber' => $phoneNumber,
                 'CallBackURL' => $callbackUrl,
-                'AccountReference' => 'Oljabet Hospital',
+                'AccountReference' => 'Tum wellness centre',
                 'TransactionDesc' => 'Payment for medical services'
             ];
 

@@ -48,6 +48,56 @@ class Menu extends BaseMenu
 
         return self::widget(['items' => $items]);
     }
+//     public static function load($items = [], $subs = [])
+// {
+//     foreach (require dirname(dirname(__DIR__)) . '/config/menus.php' as  $menuKey => $item) {
+//         // Check permission for top-level item
+//         if (isset($item['permission']) && !Yii::$app->user->can($item['permission'])) {
+//             continue; // Skip if user doesn't have permission
+//         }
+
+//         $label = '<span class="nav-main-link-name">' . $item['title'] . '</span>';
+//         $icon = '<i class="nav-main-link-icon fa fa-' . $item['icon'] . '"> </i>';
+
+//         if (isset($item['url'])) {
+//             $items[] = [
+//                 'label' => $icon . $label,
+//                 'url' => [$item['url']],
+//                 'visible' => true
+//             ];
+//         } else {
+//             // Handle submenus with permission checks
+//             foreach ($item['submenus'] as $key => $miniItem) {
+//                 if (isset($miniItem['permission']) && !Yii::$app->user->can($miniItem['permission'])) {
+//                     continue;
+//                 }
+
+//                 $url = isset($miniItem['param'])
+//                     ? [$miniItem['url'], key($miniItem['param']) => $miniItem['param'][key($miniItem['param'])]]
+//                     : [$miniItem['url']];
+
+//                 $subs[$menuKey][] = [
+//                     'label' => $miniItem['title'],
+//                     'url' => $url,
+//                     'visible' => true
+//                 ];
+//             }
+
+//             if (!empty($subs[$menuKey])) {
+//                 $items[] = [
+//                     'label' => $icon . $label,
+//                     'url' => '#',
+//                     'template' => '<a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">{label}</a>',
+//                     'items' => $subs[$menuKey],
+//                     'visible' => true,
+//                 ];
+//             }
+//         }
+//     }
+
+//     return self::widget(['items' => $items]);
+// }
+
     protected function renderItem($item)
     {
         if (isset($item['url'])) {

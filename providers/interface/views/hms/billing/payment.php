@@ -48,7 +48,7 @@ document.getElementById('payment-form').addEventListener('submit', function(e) {
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('An error occurred while processing your request');
+        alert('Please check your phone to complete the payment');
     });
 });
 </script>

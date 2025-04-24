@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="block-header block-header-default">
           <h3 class="block-title"><?= Html::encode($this->title) ?> </h3>
           <div class="block-options">
+            <?=Html::a('Download PDF Report', ['appointments/download-report'], ['class' => 'btn btn-danger']) ?>
           <?=  Html::customButton([
             'type' => 'modal',
             'url' => Url::to(['create']),

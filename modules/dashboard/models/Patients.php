@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "patients".
  *
  * @property int $id
+ * @property int $student_id
  * @property string $first_name
  * @property string $last_name
  * @property string $date_of_birth
@@ -21,9 +22,12 @@ use Yii;
  *
  * @property Appointments[] $appointments
  * @property MedicalRecords[] $medicalRecords
+ * @property Students $student
  */
 class Patients extends \yii\db\ActiveRecord
 {
+
+
     /**
      * {@inheritdoc}
      */
@@ -38,13 +42,16 @@ class Patients extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['first_name', 'last_name', 'date_of_birth', 'gender', 'phone', 'address'], 'required'],
+            [['email', 'created_at', 'updated_at'], 'default', 'value' => null],
+            [['is_deleted'], 'default', 'value' => 0],
+            [[ 'first_name', 'last_name', 'date_of_birth', 'gender', 'phone', 'address'], 'required'],
+            [[ 'is_deleted', 'created_at', 'updated_at'], 'integer'],
             [['date_of_birth'], 'safe'],
             [['address'], 'string'],
-            [['is_deleted', 'created_at', 'updated_at'], 'integer'],
             [['first_name', 'last_name', 'email'], 'string', 'max' => 100],
             [['gender'], 'string', 'max' => 10],
             [['phone'], 'string', 'max' => 15],
+            [['student_id'], 'exist', 'skipOnError' => true, 'targetClass' => Students::class, 'targetAttribute' => ['student_id' => 'id']],
         ];
     }
 
@@ -55,6 +62,7 @@ class Patients extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'student_id' => 'Student ID',
             'first_name' => 'First Name',
             'last_name' => 'Last Name',
             'date_of_birth' => 'Date Of Birth',
@@ -87,4 +95,15 @@ class Patients extends \yii\db\ActiveRecord
     {
         return $this->hasMany(MedicalRecords::class, ['patient_id' => 'id']);
     }
+
+    /**
+     * Gets query for [[Student]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStudent()
+    {
+        return $this->hasOne(Students::class, ['id' => 'student_id']);
+    }
+
 }

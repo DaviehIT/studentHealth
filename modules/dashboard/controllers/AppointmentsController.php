@@ -1,7 +1,7 @@
 <?php
 
 namespace dashboard\controllers;
-
+use Mpdf\Mpdf;
 use Yii;
 use dashboard\models\Appointments;
 use dashboard\models\searches\AppointmentsSearches;
@@ -116,4 +116,26 @@ class AppointmentsController extends DashboardController
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+    public function actionDownloadReport()
+{
+    // Yii::$app->user->can('dashboard-appointments-report');
+    $appointments = Appointments::find()->all();
+
+    $mpdf = new Mpdf();
+
+    // Set Header
+    $mpdf->SetHeader('TUM Wellness Centre Appointments Report||Generated on: {DATE j-m-Y}');
+
+    // Set Footer
+    $mpdf->SetFooter('Page {PAGENO} of {nb}');
+
+    // Content
+    $html = $this->renderPartial('_appointments-pdf', [
+        'appointments' => $appointments,
+    ]);
+
+    $mpdf->WriteHTML($html);
+    $mpdf->Output('appointments-report.pdf', 'I');
+}
+
 }

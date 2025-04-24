@@ -66,7 +66,7 @@ class MpesaService extends Component
             $password = base64_encode($this->shortcode . $this->passkey . $timestamp);
             
             $url = $this->getApiUrl('mpesa/stkpush/v1/processrequest');
-            $callbackUrl = "https://63ba-2a02-6ea0-c412-2216-00-13.ngrok-free.app/api/mpesa/callback/";
+            $callbackUrl = "https://2290-197-231-178-131.ngrok-free.app/api/mpesa/callback/";
 
             $data = [
                 'BusinessShortCode' => $this->shortcode,
@@ -78,7 +78,7 @@ class MpesaService extends Component
                 'PartyB' => $this->shortcode,
                 'PhoneNumber' => $phoneNumber,
                 'CallBackURL' => $callbackUrl,
-                'AccountReference' => 'Oljabet Hospital',
+                'AccountReference' => 'TUM Medical centre',
                 'TransactionDesc' => 'Payment for medical services'
             ];
 

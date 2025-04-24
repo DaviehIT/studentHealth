@@ -2,6 +2,7 @@
 use helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
+use yii;
 ?>
 
 <div class="billing-index">
@@ -17,6 +18,7 @@ use yii\helpers\Url;
                 'theme' => 'success',
             ],
             'modal' => ['title' => 'Make Payment'],
+           'visible'=> Yii::$app->user->can('dashboard-billing-payment',true) 
         ])
            ?>
     </p>

@@ -22,6 +22,7 @@ class BillingController extends DashboardController
 
     public function actionPayment()
     {
+        // Yii::$app->user->can('dashboard-billing-payment');
         if (Yii::$app->request->isAjax) {
             return $this->renderAjax('payment');
         }
@@ -30,6 +31,8 @@ class BillingController extends DashboardController
 
     public function actionInitiatePayment()
     {
+        
+       
         if (Yii::$app->request->isPost) {
             $phoneNumber = Yii::$app->request->post('phone_number');
             $amount = Yii::$app->request->post('amount');

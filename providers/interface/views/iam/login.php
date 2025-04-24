@@ -4,19 +4,32 @@ use helpers\Html;
 use helpers\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
+use ui\bundles\DashboardAsset;
+
+DashboardAsset::register($this);
 ?>
 <div class="row justify-content-center push">
     <div class="col-md-8 col-lg-6 col-xl-4">
         <!-- Sign In Block -->
         <div class="block block-rounded mb-0">
-            <div class="block-header block-header-default bg-primary text-white text-center">
+            <div  class="block-header block-header-default  text-white text-center" style="background-color: #012437;">
                 <h3 class="block-title">Welcome to <?= Html::encode(Yii::$app->name) ?></h3>
             </div>
             <div class="block-content">
                 <div class="p-sm-3 px-lg-4 px-xxl-2 py-lg-2">
                     <div class="text-center mb-4">
-                        <img src="/path/to/hospital-logo.png" alt="Hospital Logo" class="img-fluid mb-2" style="width: 80px;">
-                        
+                        <?= Html::img('@web/providers/interface/assets/images/hospital.png', [
+                            'alt' => 'Hospital Logo',
+                            'class' => 'img-fluid mb-2',
+                            'style' => '
+                           max-width: 80px;
+                            max-height:80px;
+
+                            '
+                        ]) ?>
+
+                      
+
                     </div>
                     <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
                     <div class="py-3">
@@ -44,6 +57,7 @@ use helpers\widgets\ActiveForm;
                         <div class="col-md-12">
                             <?= Html::submitButton('<i class="fa fa-fw fa-sign-in-alt me-1 opacity-50"></i> Login', [
                                 'class' => 'btn btn-primary btn-lg w-100',
+                                'style'=>'background-color: #012437',
                             ]) ?>
                         </div>
                     </div>

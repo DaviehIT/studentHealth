@@ -19,60 +19,65 @@ use yii\jui\DatePicker;
         'enableAjaxValidation' => true,
         'enableClientValidation' => true,
     ]); ?>
-    
+
     <div class="row">
         <div class="col-md-12">
-        <?= $form->field($model, 'patient_id')->dropDownList(
-            ArrayHelper::map(Patients::find()->all(), 'id', 'first_name'),
-            ['prompt' => 'Select Patient']
-        ) ?>
+            <?= $form->field($model, 'patient_id')->dropDownList(
+                ArrayHelper::map(Patients::find()->all(), 'id', 'first_name'),
+                ['prompt' => 'Select Patient']
+            ) ?>
         </div>
-        
+
         <div class="col-md-12">
-        <?= $form->field($model, 'staff_id')->dropDownList(
-            ArrayHelper::map(Staff::find()->all(), 'id', 'first_name'),
-            ['prompt' => 'Select Doctor']
-        ) ?>
+            <?= $form->field($model, 'staff_id')->dropDownList(
+                ArrayHelper::map(Staff::find()->all(), 'id', 'first_name'),
+                ['prompt' => 'Select Doctor']
+            ) ?>
         </div>
-        
+
         <div class="col-md-12">
-        <?= $form->field($model, 'appointment_date')->widget(DatePicker::class, [
-            'options' => ['class' => 'form-control'],
-            'dateFormat' => 'yyyy-MM-dd',
-            'clientOptions' => [
-                'changeMonth' => true,
-                'changeYear' => true,
-                'yearRange' => '-100:+0',
-            ],
-        ]) ?>
+            <?= $form->field($model, 'appointment_date')->widget(DatePicker::class, [
+                'options' => ['class' => 'form-control'],
+                'dateFormat' => 'yyyy-MM-dd',
+                'clientOptions' => [
+                    'changeMonth' => true,
+                    'changeYear' => true,
+                    'yearRange' => ':+0',
+                    'minDate' => '0', // today
+                    'maxDate' => '+1M +10D', // 1 month and 10 days from today
+                ],
+            ]) ?>
         </div>
-        
+
         <div class="col-md-12">
-        <?= $form->field($model, 'appointment_time')->input('time', [
-            'class' => 'form-control',
-            'value' => '09:00'
-        ]) ?>
+            <?= $form->field($model, 'appointment_time')->input('time', [
+                'class' => 'form-control',
+                'value' => '09:00',
+                'min' => '08:00',
+                'max' => '18:00',
+                'step' => '900'
+            ]) ?>
         </div>
-        
+
         <div class="col-md-12">
-        <?= $form->field($model, 'status_id')->dropDownList(
-            ArrayHelper::map(AppointmentStatus::find()->all(), 'id', 'name'),
-            ['prompt' => 'Select Status']
-        ) ?>
+            <?= $form->field($model, 'status_id')->dropDownList(
+                ArrayHelper::map(AppointmentStatus::find()->all(), 'id', 'name'),
+                ['prompt' => 'Select Status']
+            ) ?>
         </div>
-        
+
         <div class="col-md-12">
-        <?= $form->field($model, 'remarks')->textarea(['rows' => 6]) ?>
+            <?= $form->field($model, 'remarks')->textarea(['rows' => 6]) ?>
         </div>
     </div>
-    
+
     <div class="block-content block-content-full text-center">
         <?= Html::submitButton('Save', [
             'class' => 'btn btn-success',
             'data-loading-text' => 'Saving...'
         ]) ?>
     </div>
-    
+
     <?php ActiveForm::end(); ?>
 </div>
 

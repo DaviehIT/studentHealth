@@ -15,6 +15,7 @@ class DashboardAsset extends AssetBundle
             'sizes' => '64x64',
         ],
         'oneui/css/dashboard.css',
+        'oneui/css/wellness.css',
     ];
     public $js = [
         'oneui/js/dashboard.js',

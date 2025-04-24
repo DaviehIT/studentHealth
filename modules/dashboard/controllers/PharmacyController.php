@@ -1,7 +1,7 @@
 <?php
 
 namespace dashboard\controllers;
-
+use Mpdf\Mpdf;
 use Yii;
 use dashboard\models\PharmacyInventory;
 use dashboard\models\searches\PharmacyInventorySearches;
@@ -117,4 +117,26 @@ class PharmacyController extends DashboardController
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+    public function actionDownloadReport()
+{
+    // Yii::$app->user->can('dashboard-pharmacy-report');
+    $inventoryItems = PharmacyInventory::find()->all();
+
+    $mpdf = new Mpdf();
+
+    // Set Header
+    $mpdf->SetHeader('TUM Wellness Centre Pharmacy Inventory||Generated on: {DATE j-m-Y}');
+
+    // Set Footer
+    $mpdf->SetFooter('Page {PAGENO} of {nb}');
+
+    // Content
+    $html = $this->renderPartial('_pharmacy-inventory-pdf', [
+        'inventoryItems' => $inventoryItems,
+    ]);
+
+    $mpdf->WriteHTML($html);
+    $mpdf->Output('pharmacy-inventory-report.pdf', 'I');
+}
+
 }

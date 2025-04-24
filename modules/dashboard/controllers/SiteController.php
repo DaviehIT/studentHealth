@@ -1,7 +1,11 @@
 <?php
 
 namespace dashboard\controllers;
-
+use dashboard\models\Appointments;
+use dashboard\models\Patients;
+use dashboard\models\MedicalRecords;
+use dashboard\models\PharmacyInventory;
+use dashboard\models\Students; 
 use Yii;
 use yii\web\Response;
 use dashboard\models\contactForm;
@@ -78,6 +82,39 @@ class SiteController extends \helpers\DashboardController
         Yii::$app->response->sendFile($file, false, ['mimeType' => 'json', 'inline' => true]);
         return true;
     }
+    public function actionDashboard()
+{
+    // Yii::$app->user->can('dashboard-dashboard');
+    $studentsCount = Students::find()->count();
+    $patientsCount = Patients::find()->count();
+    $appointmentsToday = Appointments::find()
+        ->where(['appointment_date' => date('Y-m-d')])
+        ->count();
+    $medicalRecords = MedicalRecords::find()->count();
+    $lowStockMeds = PharmacyInventory::find()->where(['<', 'quantity', 10])->count();
+
+    $appointmentChart = [
+        'labels' => json_encode(['Mon', 'Tue', 'Wed', 'Thu', 'Fri']),
+        'data' => json_encode([5, 10, 4, 8, 6])
+    ];
+
+    $genderData = json_encode([
+        Patients::find()->where(['gender' => 'Male'])->count(),
+        Patients::find()->where(['gender' => 'Female'])->count(),
+        Patients::find()->where(['gender' => 'Other'])->count()
+    ]);
+
+    return $this->render('dashboard', [
+        'studentsCount' => $studentsCount,
+        'patientsCount' => $patientsCount,
+        'appointmentsToday' => $appointmentsToday,
+        'medicalRecords' => $medicalRecords,
+        'lowStockMeds' => $lowStockMeds,
+        'appointmentChart' => $appointmentChart,
+        'genderData' => $genderData,
+    ]);
+}
+
     //  /**
     //  * Displays contact page.
     //  *

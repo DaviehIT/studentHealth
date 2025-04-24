@@ -1,7 +1,7 @@
 <?php
 
 namespace dashboard\controllers;
-
+use Mpdf\Mpdf;
 use Yii;
 use dashboard\models\MedicalRecords;
 use dashboard\models\searches\MedicalRecordsSearches;
@@ -108,4 +108,26 @@ class MedicalRecordsController extends DashboardController
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+    public function actionDownloadReport()
+{
+    // Yii::$app->user->can('dashboard-medical-report');
+    $medicalRecords = MedicalRecords::find()->all();
+
+    $mpdf = new Mpdf();
+
+    // Set Header
+    $mpdf->SetHeader('TUM Wellness Centre Medical Records||Generated on: {DATE j-m-Y}');
+
+    // Set Footer
+    $mpdf->SetFooter('Page {PAGENO} of {nb}');
+
+    // Content
+    $html = $this->renderPartial('_medical-records-pdf', [
+        'medicalRecords' => $medicalRecords,
+    ]);
+
+    $mpdf->WriteHTML($html);
+    $mpdf->Output('medical-records-report.pdf', 'I');
+}
+
 }
